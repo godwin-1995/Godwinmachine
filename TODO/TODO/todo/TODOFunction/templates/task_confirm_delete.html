@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirm Delete</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .confirm-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button, a {
+            background-color: #3AAFA9;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover, a:hover {
+            background-color: #369a93;
+        }
+
+        a.cancel {
+            background-color: #FF6B6B;
+        }
+
+        a.cancel:hover {
+            background-color: #e55e5e;
+        }
+    </style>
+</head>
+<body>
+    <div class="confirm-container">
+        <h2>Are you sure you want to delete this task?</h2>
+        <p><strong>{{ task.title }}</strong> - {{ task.description }}</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Yes, delete</button>
+            <a href="{% url 'task_list' %}" class="cancel">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

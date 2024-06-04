@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task List</title>
+    <style>
+        /* Your existing CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .task-container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .create-task-btn {
+            display: inline-block;
+            background-color: #3AAFA9;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .create-task-btn:hover {
+            background-color: #369a93;
+        }
+
+        .task-container ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .task-container li {
+            background-color: #fafafa;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .task-container li.completed {
+            background-color: #e6ffe6;
+            text-decoration: line-through;
+            color: #666;
+        }
+
+        .task-actions a {
+            margin-left: 10px;
+            color: #3AAFA9;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .task-actions a:hover {
+            text-decoration: underline;
+        }
+
+        /* Logout button style */
+        .logout-btn {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <h2>Task List</h2>
+    <div class="task-container">
+        <a href="{% url 'task_create' %}" class="create-task-btn">Create Task</a>
+        <ul>
+            {% for task in tasks %}
+                <li class="{% if task.completed %}completed{% endif %}">
+                    <div>
+                        <strong>{{ task.title }}</strong> - {{ task.description }}
+                    </div>
+                    <div class="task-actions">
+                        {% if not task.completed %}
+                            <a href="{% url 'task_complete' task.id %}">Mark as completed</a>
+                        {% else %}
+                            <span>Completed</span>
+                        {% endif %}
+                        <a href="{% url 'task_update' task.id %}">Edit</a>
+                        <a href="{% url 'task_delete' task.id %}">Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <!-- Logout button -->
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        // Logout function
+        function logout() {
+            // You can implement your logout logic here
+            // For example, redirecting to the logout URL
+            window.location.href = "{% url 'login' %}";
+        }
+    </script>
+</body>
+</html>
